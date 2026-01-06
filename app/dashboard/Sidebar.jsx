@@ -39,7 +39,7 @@ const Sidebar = ({ activeMenu, setActiveMenu }) => {
       label: 'User & Role Management',
       subItems: [
         { id: 'user-list', label: 'User List', icon: Users },
-        { id: 'create-edit-user', label: 'Create / Edit User', icon: UserPlus },
+        { id: 'create-edit-user', label: 'Create User', icon: UserPlus },
         { id: 'role-management', label: 'Role Management', icon: Shield },
         { id: 'permission-management', label: 'Permission Management', icon: Lock },
         { id: 'assign-roles', label: 'Assign Roles to Users', icon: UserCheck },

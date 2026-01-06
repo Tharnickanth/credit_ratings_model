@@ -10,14 +10,33 @@ const RoleManagement = () => {
   });
 
   const [roles, setRoles] = useState([]);
-  const [availablePermissions, setAvailablePermissions] = useState([]);
   const [errors, setErrors] = useState({});
   const [isLoading, setIsLoading] = useState(false);
   const [isFetchingRoles, setIsFetchingRoles] = useState(true);
-  const [isFetchingPermissions, setIsFetchingPermissions] = useState(true);
   const [successMessage, setSuccessMessage] = useState('');
   const [isEditing, setIsEditing] = useState(false);
   const [editingRoleId, setEditingRoleId] = useState(null);
+
+  // Available permissions list
+  const availablePermissions = [
+    { id: 'dashboard_view', label: 'View Dashboard', category: 'Dashboard' },
+    { id: 'dashboard_edit', label: 'Edit Dashboard', category: 'Dashboard' },
+    { id: 'users_view', label: 'View Users', category: 'User Management' },
+    { id: 'users_create', label: 'Create Users', category: 'User Management' },
+    { id: 'users_edit', label: 'Edit Users', category: 'User Management' },
+    { id: 'users_delete', label: 'Delete Users', category: 'User Management' },
+    { id: 'roles_view', label: 'View Roles', category: 'Role Management' },
+    { id: 'roles_create', label: 'Create Roles', category: 'Role Management' },
+    { id: 'roles_edit', label: 'Edit Roles', category: 'Role Management' },
+    { id: 'roles_delete', label: 'Delete Roles', category: 'Role Management' },
+    { id: 'permissions_manage', label: 'Manage Permissions', category: 'Role Management' },
+    { id: 'credit_rating_view', label: 'View Credit Ratings', category: 'Credit Rating' },
+    { id: 'credit_rating_approve', label: 'Approve Credit Ratings', category: 'Credit Rating' },
+    { id: 'factor_level_view', label: 'View Factor Levels', category: 'Factor Level' },
+    { id: 'factor_level_adjust', label: 'Adjust Factor Levels', category: 'Factor Level' },
+    { id: 'settings_view', label: 'View Settings', category: 'Settings' },
+    { id: 'settings_edit', label: 'Edit Settings', category: 'Settings' }
+  ];
 
   // Group permissions by category
   const groupedPermissions = availablePermissions.reduce((acc, perm) => {
@@ -28,45 +47,9 @@ const RoleManagement = () => {
     return acc;
   }, {});
 
-  // Sort permissions within each category by position
-  Object.keys(groupedPermissions).forEach(category => {
-    groupedPermissions[category].sort((a, b) => (a.position || 0) - (b.position || 0));
-  });
-
   useEffect(() => {
     fetchRoles();
-    fetchPermissions();
   }, []);
-
-  const fetchPermissions = async () => {
-    try {
-      setIsFetchingPermissions(true);
-      const response = await fetch('/api/permissions');
-      const data = await response.json();
-      
-      if (response.ok) {
-        // Filter only active permissions and map to the format needed
-        const activePermissions = (data.permissions || [])
-          .filter(p => p.status === 'active')
-          .map(p => ({
-            id: p.permissionId,
-            label: p.label,
-            category: p.category,
-            position: p.position || 0
-          }));
-        setAvailablePermissions(activePermissions);
-      } else {
-        console.error('Failed to fetch permissions');
-        // Fallback to empty array if fetch fails
-        setAvailablePermissions([]);
-      }
-    } catch (error) {
-      console.error('Error fetching permissions:', error);
-      setAvailablePermissions([]);
-    } finally {
-      setIsFetchingPermissions(false);
-    }
-  };
 
   const fetchRoles = async () => {
     try {
@@ -302,21 +285,7 @@ const RoleManagement = () => {
         </div>
       )}
 
-      {isFetchingPermissions ? (
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
-          <div className="flex justify-center items-center py-8">
-            <Loader2 className="animate-spin text-cyan-500 mr-2" size={24} />
-            <span className="text-gray-600">Loading permissions...</span>
-          </div>
-        </div>
-      ) : availablePermissions.length === 0 ? (
-        <div className="mb-6 bg-yellow-100 border border-yellow-400 text-yellow-700 px-4 py-3 rounded relative">
-          <span className="block sm:inline">
-            No permissions available. Please add permissions in the Permission Management page first.
-          </span>
-        </div>
-      ) : (
-        <div className="bg-white rounded-lg shadow p-6 mb-8">
+      <div className="bg-white rounded-lg shadow p-6 mb-8">
         {/* Role Information Section */}
         <div className="mb-8">
           <h2 className="text-lg font-semibold text-gray-800 mb-4 flex items-center gap-2">
@@ -474,7 +443,6 @@ const RoleManagement = () => {
           </button>
         </div>
       </div>
-      )}
 
       {/* Roles List */}
       <div className="bg-white rounded-lg shadow p-6">

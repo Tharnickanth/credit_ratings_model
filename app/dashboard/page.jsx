@@ -6,6 +6,8 @@ import Sidebar from './Sidebar';
 import Header from './Header';
 import CreateEditUser from './CreateEditUser';
 import RoleManagement from './RoleManagement';
+import PermissionManagement from './PermissionManagement';
+import UserList from './UserList';
 
 const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -38,31 +40,11 @@ const Dashboard = () => {
       case 'role-management':
         return <RoleManagement />;
       
-      case 'user-list':
-        return (
-          <div className="p-8">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-gray-800">User List</h1>
-              <p className="text-gray-600 mt-1">Manage all system users</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p className="text-gray-500">User list component coming soon...</p>
-            </div>
-          </div>
-        );
-      
       case 'permission-management':
-        return (
-          <div className="p-8">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-gray-800">Permission Management</h1>
-              <p className="text-gray-600 mt-1">Configure system permissions</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p className="text-gray-500">Permission management component coming soon...</p>
-            </div>
-          </div>
-        );
+        return <PermissionManagement />;
+      
+      case 'user-list':
+        return <UserList />;
       
       case 'assign-roles':
         return (
