@@ -8,6 +8,9 @@ import CreateEditUser from './CreateEditUser';
 import RoleManagement from './RoleManagement';
 import PermissionManagement from './PermissionManagement';
 import UserList from './UserList';
+import LoginHistory from './LoginHistory';
+import CreateRatingAssessment from './CreateRatingAssessment';
+import RatingAssessmentList from './RatingAssessmentList';
 
 const Dashboard = () => {
   const [activeMenu, setActiveMenu] = useState('dashboard');
@@ -73,17 +76,7 @@ const Dashboard = () => {
         );
       
       case 'login-history':
-        return (
-          <div className="p-8">
-            <div className="mb-6">
-              <h1 className="text-2xl font-bold text-gray-800">Login History</h1>
-              <p className="text-gray-600 mt-1">Track user login activity</p>
-            </div>
-            <div className="bg-white rounded-lg shadow p-6">
-              <p className="text-gray-500">Login history component coming soon...</p>
-            </div>
-          </div>
-        );
+        return <LoginHistory />;
       
       case 'approval-list':
         return (
@@ -96,6 +89,24 @@ const Dashboard = () => {
               <p className="text-gray-500">Approval list component coming soon...</p>
             </div>
           </div>
+        );
+      
+      // NEW: Create Rating Assessment
+      case 'create-rating-assessment':
+        return <CreateRatingAssessment />;
+      
+      // NEW: Rating Assessment List
+      case 'rating-assessment-list':
+        return (
+          <RatingAssessmentList
+            onCreateNew={() => setActiveMenu('create-rating-assessment')}
+            onEdit={(assessment) => {
+              // Navigate to edit page with assessment data
+              console.log('Edit assessment:', assessment);
+              setActiveMenu('create-rating-assessment');
+              // TODO: Pass the assessment data to the edit form
+            }}
+          />
         );
       
       case 'approvals':

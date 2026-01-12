@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Settings, BarChart3, ChevronDown, ChevronRight, Sliders, CheckSquare, FileCheck, Users, UserPlus, Shield, Lock, UserCheck, Activity, Clock } from 'lucide-react';
+import { Settings, BarChart3, ChevronDown, ChevronRight, Sliders, CheckSquare, FileCheck, Users, UserPlus, Shield, Lock, UserCheck, Activity, Clock, FilePlus } from 'lucide-react';
 
 const Sidebar = ({ activeMenu, setActiveMenu }) => {
   const [expandedMenus, setExpandedMenus] = useState({});
@@ -30,6 +30,8 @@ const Sidebar = ({ activeMenu, setActiveMenu }) => {
       icon: FileCheck, 
       label: 'Credit Rating Assessment',
       subItems: [
+        { id: 'create-rating-assessment', label: 'Create Rating Assessment', icon: FilePlus },
+        { id: 'rating-assessment-list', label: 'Assessment List', icon: FileCheck },
         { id: 'approvals', label: 'Approvals', icon: CheckSquare }
       ]
     },
