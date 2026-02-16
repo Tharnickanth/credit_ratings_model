@@ -1,6 +1,6 @@
 // app/api/permissions/landing-actions/route.js
 import { NextResponse } from 'next/server';
-import clientPromise from '@/lib/mongodb';
+import clientPromise from '@/lib/mongodb1';
 import { ObjectId } from 'mongodb';
 
 export const dynamic = 'force-dynamic';
